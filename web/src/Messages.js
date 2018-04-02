@@ -67,7 +67,7 @@ export default withAuth(class Profile extends Component {
 
   render() {
     const possibleErrors = [
-      'You\'ve downloaded one of our resource server examples, and it\'s running on port 8000.',
+      'You\'ve downloaded one of our resource server examples, and it\'s running on port 5000.',
       'Your resource server example is using the same Okta authorization server (issuer) that you have configured this React application to use.',
     ];
     return (
@@ -77,7 +77,7 @@ export default withAuth(class Profile extends Component {
         {this.state.failed === null && <p>Fetching Messages..</p>}
         {this.state.messages &&
           <div>
-            <p>This component makes a GET request to the resource server example, which must be running at <code>localhost:8000/api/messages</code></p>
+            <p>This component makes a GET request to the resource server example, which must be running at <code>localhost:5000/api/messages</code></p>
             <p>
               It attaches your current access token in the <code>Authorization</code> header on the request,
               and the resource server will attempt to authenticate this access token.
