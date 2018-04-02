@@ -30,6 +30,7 @@ export default withAuth(class Profile extends Component {
     if (!this.state.messages) {
       try {
         const accessToken = await this.props.auth.getAccessToken();
+        console.log(`Bearer ${accessToken}`);
         /* global fetch */
         const response = await fetch(config.resourceServer.messagesUrl, {
           headers: {

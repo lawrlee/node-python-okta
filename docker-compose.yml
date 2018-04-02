@@ -9,21 +9,32 @@ services:
     ports:
       - "5000:5000"
     env_file:
-      - web-variables.env
+      - .env
     environment:
-      AWS_DEFAULT_REGION: us-west-2
+      - FLASK_APP=app.py
+      - FLASK_DEBUG=1
+    command: python -m flask run --host=0.0.0.0
   web:
     build: ./web
     volumes:
       - ~/.aws:/root/.aws
       - ./web:/web
+      - node_modules:/web/node_modules
+    ports:
+      - "3000:3000"
+#    env_file:
+#      - .env
+    environment:
+      - REACT_APP_RESOURCE_MESSAGES_URL=http://app:5000/api/messages
+      - REACT_APP_OKTA_CLIENT_ID=${OKTA_CLIENT_ID}
+      - REACT_APP_OKTA_CLIENT_SECRET=${OKTA_CLIENT_SECRET}
+      - REACT_APP_OKTA_ISSUER=${OKTA_ISSUER}
+      - REACT_APP_OKTA_REDIRECT_URL=${OKTA_REDIRECT_URL}
+      - REACT_APP_OKTA_SCOPE=${OKTA_SCOPE}
     depends_on:
       - api
     links:
       - api
-    ports:
-      - "3000:3000"
-    env_file:
-      - web-variables.env
-    environment:
-      AWS_DEFAULT_REGION: us-west-2
+
+volumes:
+  node_modules:
