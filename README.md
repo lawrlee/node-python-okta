@@ -8,6 +8,8 @@ endpoint to validate the token.
 
 # Okta Setup
 
+If you do not have an Okta account, you can sign up for a Developer's account (https://developer.okta.com/signup/).
+
 You will need to create an Okta Web application. Set the `Login redirect URIs` and `Initiate login URI` to
 
     http://localhost:3000/implicit/callback
