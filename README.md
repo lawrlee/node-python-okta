@@ -14,7 +14,7 @@ You will need to create an Okta Web application. Set the `Login redirect URIs` a
 
 This is where your Node server will be running. Grab the client ID and client secret too.
 
-![Okta app](./okta_app.png)
+<img src="./okta_app.png", width="300" />
 
 Next, add `http://localhost:3000/` as a CORS origin under the `API` tab.
 
