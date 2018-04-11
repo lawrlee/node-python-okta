@@ -6,7 +6,7 @@ from flask import Flask, jsonify, request, Response
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, vary_header=True)
 
 base_url = os.getenv('OKTA_ISSUER')
 client_id = os.getenv('OKTA_CLIENT_ID')
@@ -19,15 +19,19 @@ def okta_jwt_required(func):
         bearer_token = request.headers.get("Authorization")
         print("Got token {}".format(bearer_token))
         token = bearer_token.replace('Bearer ', '')
-        introspect_url = base_url + '/v1/introspect'
+        introspect_url = base_url + 'oauth2/v1/introspect'
         introspect_payload = {
             'token': token,
             'token_type_hint': 'access_token',
-            'client_id': client_id,
-            'client_secret': client_secret
+            'client_id': client_id
         }
-        response = requests.post(introspect_url, data=introspect_payload)
-        print("Introspection response {}".format(response.json()))
+        print("Introspection payload {}".format(introspect_payload))
+        try:
+            response = requests.post(introspect_url, data=introspect_payload)
+            response.raise_for_status()
+        except Exception as e:
+            return Response('Error accessing introspect url: {}'.format(str(e)), response.status_code, {})
+        print("Introspection response {}".format(response.content))
         if response.json().get('active'):
             return func()
         else:
