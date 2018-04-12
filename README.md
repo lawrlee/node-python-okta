@@ -10,7 +10,7 @@ endpoint to validate the token.
 
 If you do not have an Okta account, you can sign up for a Developer's account (https://developer.okta.com/signup/).
 
-You will need to create an Okta Web application. Set the `Login redirect URIs` and `Initiate login URI` to
+You will need to create an Okta SPA application. Set the `Login redirect URIs` and `Initiate login URI` to
 
     http://localhost:3000/implicit/callback
 
@@ -26,7 +26,6 @@ The Okta parameters need to be passed into the containers via environment variab
 save as `.env` to get the variables propagated into the containers.
 
     OKTA_CLIENT_ID=<Okta client id>
-    OKTA_CLIENT_SECRET=<Okta client secret>
     OKTA_ISSUER=<https://dev-######.oktapreview.com/oauth2/default>
     OKTA_REDIRECT_URI=http://localhost:3000/implicit/callback
     OKTA_SCOPE=openid profile email
